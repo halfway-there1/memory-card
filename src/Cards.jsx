@@ -14,15 +14,29 @@ function shuffle(n) {
   return arr;
 }
 
-export default function Cards({ characters }) {
+export default function Cards({
+  characters,
+  currentRoundScore,
+  setCurrentRoundScore,
+  setHighestScore,
+  setShowLoseModal,
+}) {
   let arr = shuffle(characters.length);
   console.log(arr);
+
   return (
     <>
       <div className="card-container">
         {arr.map((val) => {
           return (
-            <Card character={characters[val]} key={characters[val].id}></Card>
+            <Card
+              character={characters[val]}
+              key={characters[val].id}
+              currentRoundScore={currentRoundScore}
+              setCurrentRoundScore={setCurrentRoundScore}
+              setHighestScore={setHighestScore}
+              setShowLoseModal={setShowLoseModal}
+            ></Card>
           );
         })}
       </div>
@@ -30,11 +44,25 @@ export default function Cards({ characters }) {
   );
 }
 
-function Card({ character }) {
+function Card({
+  character,
+  currentRoundScore,
+  setCurrentRoundScore,
+  setHighestScore,
+  setShowLoseModal,
+}) {
   const [clicks, setClicks] = useState(0);
 
+  console.log('rendering card');
+
   function handleClick() {
-    setClicks(clicks + 1);
+    if (clicks === 0) {
+      setClicks((clicks) => clicks + 1);
+      setCurrentRoundScore((prev) => prev + 1);
+    } else if (clicks === 1) {
+      setHighestScore((prev) => Math.max(prev, currentRoundScore));
+      setShowLoseModal(true);
+    }
   }
 
   return (
