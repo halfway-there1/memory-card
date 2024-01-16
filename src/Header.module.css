@@ -3,5 +3,8 @@
 .header {
   font-family: 'Poppins', sans-serif;
   color: rgb(54, 87, 165);
-  background-color: yellow;
+}
+
+:global(.character) {
+  border: 2px solid black;
 }
