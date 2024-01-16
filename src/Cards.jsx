@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function shuffle(n) {
   let arr = [];
@@ -13,6 +14,19 @@ function shuffle(n) {
 
   return arr;
 }
+
+Cards.propTypes = {
+  characters: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      path: PropTypes.string,
+    })
+  ),
+  currentRoundScore: PropTypes.number,
+  setCurrentRoundScore: PropTypes.func,
+  setHighestScore: PropTypes.func,
+  setShowLoseModal: PropTypes.func,
+};
 
 export default function Cards({
   characters,
@@ -43,6 +57,17 @@ export default function Cards({
     </>
   );
 }
+
+Card.propTypes = {
+  character: PropTypes.shape({
+    id: PropTypes.number,
+    path: PropTypes.string,
+  }),
+  currentRoundScore: PropTypes.number,
+  setCurrentRoundScore: PropTypes.func,
+  setHighestScore: PropTypes.func,
+  setShowLoseModal: PropTypes.func,
+};
 
 function Card({
   character,
